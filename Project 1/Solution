@@ -1,0 +1,107 @@
+Q1> 
+PART1: head -n 109 sample_lib.txt > file1.txt
+
+PART2: sed -n '110,167p' sample_lib.txt > file2.txt or we can do this using head and tail command by writing this: head -167 sample_lib.txt | tail +110
+
+PART3: cat file2.txt file1.txt > file3.txt
+
+-------------------------------------------------------------
+
+Q2> 
+
+cat sample_lib.txt | grep -i -o ^library[a-z0-9_\)\(]* | grep -oP '(?<=library\().*?(?=\))' > find_lib.txt
+
+-------------------------------------------------------------
+
+Q3> 
+
+cat sample_lib.txt | grep -i -o ^cell[[:space:]][\(\)a-z0-9]* | grep -oP '(?<=cell[[:space:]]\().*?(?=\))' > find_cell.txt
+
+-------------------------------------------------------------
+
+Q4> 
+
+wc -l < find_cell.txt > cell_count.txt
+
+------------------------------------------------------------
+
+Q5> 
+
+cat sample_lib.txt | grep -i -o pin[\(\)a-z0-9]* | grep -oP '(?<=pin\().*?(?=\))' | wc -l > count_pins.txt
+
+------------------------------------------------------------
+
+Q6>
+
+grep -e ^voltage_unit -e ^time_unit -e ^current_unit -e ^pulling_resistance_unit -e ^leakage_power_unit -e ^capacitive_load_unit sample_lib.txt > find_units.txt
+
+------------------------------------------------------------
+
+Q7> 
+
+awk '/^cell[[:space:]][\(\)a-z0-9]/,/^area/' sample_lib.txt | grep -i ^area > cell_area.txt
+
+------------------------------------------------------------
+
+Q8> 
+
+awk '/pin[\(\)a-z0-9]/,/;/' sample_lib.txt > pin_dir.txt
+
+------------------------------------------------------------
+
+Q9>
+
+awk '/[/][*]/,/[*][/]/' sample_lib.txt | grep ^[*/] > commented_lines.txt
+
+------------------------------------------------------------
+
+Q10> 
+
+head -15 sample_lib.txt | tail +1 ; head -19 sample_lib.txt | tail +19 ; head -30 sample_lib.txt | tail +25
+
+------------------------------------------------------------
+
+Q11>
+
+sed 's/cell/new_cell/g' sample_lib.txt > new_sample_lib.txt
+
+or to update the existing file use -i
+
+sed -i 's/cell/new_cell/g' sample_lib.txt
+
+------------------------------------------------------------
+
+Q12>
+
+sed -i '1d;5,9d' deleted_lib.txt
+
+------------------------------------------------------------
+
+Q13> 
+
+awk '{print $2}' sample_lib.txt | sort > sorted_tabular.txt
+
+or we can use
+
+cut -d " " -f2 sample_lib.txt | sort > sorted_tabular.txt
+
+-----------------------------------------------------------
+
+Q14>
+
+grep -i -o "[a-z]\+[0-9]\+[\!\"\#\$\%\&\'\(\)\*\+\,\‑\.\/\:\<\=\>\?\@]" sample_lib.txt
+
+-----------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+

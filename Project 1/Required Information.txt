@@ -1,0 +1,20 @@
+use sample_lib file as input for below assignments
+
+1. make 3 separate files out of sample_lib { basic command head, tail and use of redirect and append}
+	1st file should contain from line 1-109
+	2nd file should contain from line 110-167
+	3rd file should contain content from 110-167 first and then 1-109
+
+2. print library name from the file
+3. print name of cell present in this file
+4. print number of cell present in file
+5. print number of pin present in file
+6. print the voltage unit, current unit, power unit, capacitance and resistance unit
+7. print area of INV cell
+8. print direction of each pin of inverter cell
+9. print commented line
+10. To print line no 1-15, 19 , 25-30
+11. To replace the name "cell" with "new_cell" in a file
+12. To delete line no. 1, 5-9
+13. In a tabular file, print 2nd column and sort it albhabetically/numerically
+14. to print text pattern followed by text, number, special character [eg. abc18@gamail.com]
