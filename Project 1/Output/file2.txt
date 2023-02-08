@@ -1,0 +1,58 @@
+
+/* -------------- *
+* Design : INVX1 *
+* -------------- */
+cell (INVX1) {
+cell_footprint : inv;
+area : 129.6;
+cell_leakage_power : 0.0310651;
+	pin(A) {
+		direction : input;
+		capacitance : 0.0159685;
+		rise_capacitance : 0.0159573;
+		fall_capacitance : 0.0159685; }
+	pin(Y) {
+		direction : output;
+		capacitance : 0;
+		rise_capacitance : 0;
+		fall_capacitance : 0;
+		max_capacitance : 0.394734;
+		function : "(!A)";
+timing() {
+related_pin : "A";
+timing_sense : negative_unate;
+cell_rise(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( \
+"0.147955, 0.218038, 0.359898, 0.922746, 1.76604", \
+"0.224384, 0.292903, 0.430394, 0.991288, 1.83116", \
+"0.365378, 0.448722, 0.584275, 1.13597, 1.97017", \
+"0.462096, 0.551586, 0.70164, 1.24437, 2.08131", \
+"0.756459, 0.874246, 1.05713, 1.62898, 2.44989"); }
+rise_transition(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+cell_fall(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+fall_transition(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+} /* end timing */
+internal_power() {
+related_pin : "A";
+rise_power(energy_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+fall_power(energy_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+} /* end internal_power */
+} /* end Pin Y */
+} /* end INVX1 */

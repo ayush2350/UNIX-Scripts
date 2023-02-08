@@ -1,0 +1,18 @@
+/* unit attributes */
+/* Because the cell area is in units of square microns, all the *
+* distance units will be assumed to be in microns or square microns. */
+/* fudge = correction factor, routing, placement, etc. */
+/* cap = fudge * cap per micron *
+* I assume cap is in capacitance units per micron *
+* (remember that our capacitance unit is 1.0pf) */
+/* length_top = the length of one side of a square die (in our case, *
+* a 4 TCU die of 2500u on a side of core area) length_10k = the *
+* length of one side of a block containing 10k gates (I’ll assume *
+* this is a core of a single TCU which is 900u on a side) */
+/* sqrt(5000/10000) = .71 *
+* sqrt(2000/10000) = .45 etc */
+/* define how the wire loads are selected based on total circuit area */
+/* end of wire_load calculation */
+/* -------------- *
+* Design : INVX1 *
+* -------------- */

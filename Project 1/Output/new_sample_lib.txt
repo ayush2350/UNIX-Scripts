@@ -1,0 +1,168 @@
+library(TSMC_16ffc) {
+delay_model : table_lookup;
+in_place_swap_mode : match_footprint;
+/* unit attributes */
+time_unit : "1ns";
+voltage_unit : "1V";
+current_unit : "1uA";
+pulling_resistance_unit : "1kohm";
+leakage_power_unit : "1nW";
+capacitive_load_unit (1,pf);
+slew_upper_threshold_pct_rise : 80;
+slew_lower_threshold_pct_rise : 20;
+slew_upper_threshold_pct_fall : 80;
+slew_lower_threshold_pct_fall : 20;
+input_threshold_pct_rise : 30;
+input_threshold_pct_fall : 70;
+output_threshold_pct_rise : 70;
+output_threshold_pct_fall : 30;
+nom_process : 1;
+nom_voltage : 5;
+nom_temperature : 25;
+operating_conditions ( typical ) {
+process : 1;
+voltage : 5;
+temperature : 25;
+}
+default_operating_conditions : typical;
+lu_table_template(delay_template_5x5) {
+variable_1 : input_net_transition;
+variable_2 : total_output_net_capacitance;
+index_1 ("1000.0, 1001.0, 1002.0, 1003.0, 1004.0");
+index_2 ("1000.0, 1001.0, 1002.0, 1003.0, 1004.0");
+}
+power_lut_template(energy_template_5x5) {
+variable_1 : input_transition_time;
+variable_2 : total_output_net_capacitance;
+index_1 ("1000.0, 1001.0, 1002.0, 1003.0, 1004.0");
+index_2 ("1000.0, 1001.0, 1002.0, 1003.0, 1004.0");
+}
+/* Because the new_cell area is in units of square microns, all the *
+* distance units will be assumed to be in microns or square microns. */
+/* fudge = correction factor, routing, placement, etc. */
+fudge = 1.0;
+/* cap = fudge * cap per micron *
+* I assume cap is in capacitance units per micron *
+* (remember that our capacitance unit is 1.0pf) */
+cap = fudge * 0.000030; /* .03ff/micron for avg metal */
+res = fudge * 0.00008 /* 80 m-ohm/square, in kohm units */
+/* length_top = the length of one side of a square die (in our case, *
+* a 4 TCU die of 2500u on a side of core area) length_10k = the *
+* length of one side of a block containing 10k gates (I’ll assume *
+* this is a core of a single TCU which is 900u on a side) */
+length_10k = 900;
+length_top = 2500.0;
+/* sqrt(5000/10000) = .71 *
+* sqrt(2000/10000) = .45 etc */
+length_5k = length_10k * 0.71;
+length_2k = length_10k * 0.45;
+length_1k = length_10k * 0.32;
+length_500 = length_10k * 0.22;
+
+wire_load("top") {
+resistance : res ;
+capacitance : cap ;
+area : 1 ; /* i.e. 1 sq micron */
+slope : length_top * .5 ;
+fanout_length(1,2500); /* length */
+fanout_length(2,3750); /* length * 1.5 */
+fanout_length(3,5000); /* length * 2 */
+fanout_length(4,5625); /* length * 2.5 */
+fanout_length(5,6250); /* length * 2.5 */
+fanout_length(6,6875); /* length * 2.75 */
+fanout_length(7,7500); /* length * 3 */
+}
+wire_load("10k") {
+resistance : res ;
+capacitance : cap ;
+area : 1 ;
+slope : length_10k * .5 ;
+fanout_length(1,900); /* length */
+fanout_length(2,1350); /* length * 1.5 */
+fanout_length(3,1800); /* length * 2 */
+fanout_length(4,2025); /* length * 2.5 */
+fanout_length(5,2250); /* length * 2.5 */
+fanout_length(6,2475); /* length * 2.75 */
+fanout_length(7,2700); /* length * 3 */
+}
+wire_load("5k") {
+resistance : res ;
+capacitance : cap ;
+area : 1 ;
+slope : length_5k * .5 ;
+fanout_length(1,639); /* length */
+fanout_length(2,959); /* length * 1.5 */
+fanout_length(3,1278); /* length * 2 */
+fanout_length(4,1439); /* length * 2.5 */
+fanout_length(5,1598); /* length * 2.5 */
+fanout_length(6,1757); /* length * 2.75 */
+fanout_length(7,1917); /* length * 3 */
+}
+/* define how the wire loads are selected based on total circuit area */
+wire_load_selection (foo) {
+wire_load_from_area ( 0, 3000000, "5k");
+wire_load_from_area (3000000, 7000000, "10k");
+}
+default_wire_load_mode : enclosed ;
+default_wire_load : "top" ;
+default_wire_load_selection : "foo" ;
+/* end of wire_load calculation */
+
+/* -------------- *
+* Design : INVX1 *
+* -------------- */
+new_cell (INVX1) {
+new_cell_footprint : inv;
+area : 129.6;
+new_cell_leakage_power : 0.0310651;
+	pin(A) {
+		direction : input;
+		capacitance : 0.0159685;
+		rise_capacitance : 0.0159573;
+		fall_capacitance : 0.0159685; }
+	pin(Y) {
+		direction : output;
+		capacitance : 0;
+		rise_capacitance : 0;
+		fall_capacitance : 0;
+		max_capacitance : 0.394734;
+		function : "(!A)";
+timing() {
+related_pin : "A";
+timing_sense : negative_unate;
+new_cell_rise(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( \
+"0.147955, 0.218038, 0.359898, 0.922746, 1.76604", \
+"0.224384, 0.292903, 0.430394, 0.991288, 1.83116", \
+"0.365378, 0.448722, 0.584275, 1.13597, 1.97017", \
+"0.462096, 0.551586, 0.70164, 1.24437, 2.08131", \
+"0.756459, 0.874246, 1.05713, 1.62898, 2.44989"); }
+rise_transition(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+new_cell_fall(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+fall_transition(delay_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+} /* end timing */
+internal_power() {
+related_pin : "A";
+rise_power(energy_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+fall_power(energy_template_5x5) {
+index_1 ("0.06, 0.18, 0.42, 0.6, 1.2");
+index_2 ("0.025, 0.05, 0.1, 0.3, 0.6");
+values ( ... ); }
+} /* end internal_power */
+} /* end Pin Y */
+} /* end INVX1 */
+} /* end of library */
