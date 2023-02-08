@@ -1,0 +1,24 @@
+Q1> 
+
+grep -i ^entity riscv_cpu.vhd | cut -d " " -f 2 > count_entity.txt ; wc -l < count_entity.txt > no_of_entity.txt
+
+-------------------------------------------------------------
+
+Q2>
+
+grep -i component[[:space:]] riscv_cpu.vhd | awk '{print $2}' > comp_names.txt ; wc -l <comp_names.txt > number_of_comp.txt
+
+-------------------------------------------------------------
+
+Q3>
+
+sim.sh file in the drive folder
+
+
+-------------------------------------------------------------
+
+Q4> 
+
+grep [\<][\=] riscv_cpu.vhd | grep -v -c [[:space:]]*[\-][\-] > num_of_assign_statements.txt
+
+-------------------------------------------------------------

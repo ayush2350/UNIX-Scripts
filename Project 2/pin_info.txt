@@ -1,0 +1,10 @@
+Component data_bus_mux_a has 5 pins with 4 number of inputs and 1 number of outputs
+Component sign_extender has 4 pins with 3 number of inputs and 1 number of outputs
+Component data_bus_mux_b has 5 pins with 4 number of inputs and 1 number of outputs
+Component result_bus_mux has 6 pins with 5 number of inputs and 1 number of outputs
+Component decoder has 25 pins with 3 number of inputs and 22 number of outputs
+Component alu has 4 pins with 3 number of inputs and 1 number of outputs
+Component shifter has 5 pins with 4 number of inputs and 1 number of outputs
+Component register_file has 10 pins with 7 number of inputs and 3 number of outputs
+Component branch_test has 6 pins with 5 number of inputs and 1 number of outputs
+Component program_counter has 12 pins with 9 number of inputs and 3 number of outputs

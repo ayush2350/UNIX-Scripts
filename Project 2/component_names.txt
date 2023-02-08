@@ -1,0 +1,10 @@
+data_bus_mux_a
+sign_extender
+data_bus_mux_b
+result_bus_mux
+decoder
+alu
+shifter
+register_file
+branch_test
+program_counter
