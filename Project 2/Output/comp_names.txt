@@ -1,0 +1,10 @@
+component data_bus_mux_a has 
+component sign_extender has 
+component data_bus_mux_b has 
+component result_bus_mux has 
+component decoder has 
+component alu has 
+component shifter has 
+component register_file has 
+component branch_test has 
+component program_counter has 
