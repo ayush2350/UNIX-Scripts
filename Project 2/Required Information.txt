@@ -1,5 +1,5 @@
 use the file "risvc_cpu" as input :
-1. find number of entity and print there name
-2. find number of components and print there name
-3. find number of ports and there direction in each components, output should look like "Component A has X pins with Y number of inputs and z number of outputs"
+1. find number of entity and print their name
+2. find number of components and print their name
+3. find number of ports and their direction in each components, output should look like "Component A has X pins with Y number of inputs and z number of outputs"
 4. how many assignment are used in this vhd file
